@@ -23,7 +23,6 @@ export class PostsService {
         console.log(`responseData says what?`,responseData);
       });
   }
-
   fetchPosts(){
     return this.http
       .get<{[key: string]: Post}>('https://angular-exercise-twelve.firebaseio.com/posts.json')
@@ -40,5 +39,8 @@ export class PostsService {
         })
        )
       
+  }
+  deletePosts(){
+    return this.http.delete('https://angular-exercise-twelve.firebaseio.com/posts.json')
   }
 }
