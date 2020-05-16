@@ -25,7 +25,7 @@ export class PostsService {
   }
 
   fetchPosts(){
-    this.http
+    return this.http
       .get<{[key: string]: Post}>('https://angular-exercise-twelve.firebaseio.com/posts.json')
       .pipe(
         map(responseData => {
@@ -37,11 +37,8 @@ export class PostsService {
             }
           }
           return postsArray;
-        }))
-      .subscribe(posts => {
-        console.log(`fetchPosts posts says what?`,posts);
-        // this.isFetching = false;
-        // this.loadedPosts = posts;
-      })
+        })
+       )
+      
   }
 }
