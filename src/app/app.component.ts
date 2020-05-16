@@ -18,7 +18,7 @@ export class AppComponent implements OnInit {
     // Send Http request
     this.http
       .post(
-        // 'https://ng-complete-guide-c56d3.firebaseio.com/posts.json',
+        // Don't forget to put the read and write rules of the Realtime database in FireBase to true !!!!! 
         'https://angular-exercise-twelve.firebaseio.com/posts.json',
         postData
       )
