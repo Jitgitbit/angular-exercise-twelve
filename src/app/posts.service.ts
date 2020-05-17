@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {map} from 'rxjs/operators';                       //no auto -import for this one ! unusual
+import { Subject } from 'rxjs';
 
 import { Post } from './post.model';
 
 @Injectable({providedIn: 'root'})
 export class PostsService {
+  error = new Subject<string>();
 
   constructor(private http: HttpClient) {}
 
@@ -19,9 +21,14 @@ export class PostsService {
         'https://angular-exercise-twelve.firebaseio.com/posts.json',
         postData
       )
-      .subscribe(responseData => {
-        console.log(`responseData says what?`,responseData);
-      });
+      .subscribe(
+        responseData => {
+          console.log(`responseData says what?`,responseData);
+        },
+        error => {
+          this.error.next(error.message);
+        }
+      );
   }
   fetchPosts(){
     return this.http
