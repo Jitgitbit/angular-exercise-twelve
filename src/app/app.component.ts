@@ -32,7 +32,11 @@ export class AppComponent implements OnInit, OnDestroy {
         console.log(`fetchPosts posts says what?`,posts);
         this.isFetching = false;
         this.loadedPosts = posts;
-      })
+      }, error => {
+        this.isFetching = false;
+        this.error = error.message; 
+        console.log(`the full error.message says what?`,error)
+      });
   }
   ngOnDestroy(){
     this.errorSub.unsubscribe();
@@ -41,7 +45,6 @@ export class AppComponent implements OnInit, OnDestroy {
   onCreatePost(postData: Post) {
     this.postsService.createAndStorePost(postData.title, postData.content);
   }
-
   onFetchPosts() {
     // Send Http request
     this.isFetching = true;
@@ -51,16 +54,19 @@ export class AppComponent implements OnInit, OnDestroy {
         this.isFetching = false;
         this.loadedPosts = posts;
       }, error => {
+        this.isFetching = false;
         this.error = error.message; 
         console.log(`the full error.message says what?`,error)
       });
   }
-
   onClearPosts() {
     // Send Http request
     this.postsService.deletePosts()
       .subscribe(() => {
         this.loadedPosts = []
       });
+  }
+  onHandleError(){
+    this.error = null;
   }
 }
