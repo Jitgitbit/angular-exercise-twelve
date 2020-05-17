@@ -12,15 +12,15 @@ import { LoggingInterceptorService } from './logging-interceptor.service';
   imports: [BrowserModule, FormsModule, HttpClientModule],
   providers: [
     {
-      provide: HTTP_INTERCEPTORS,                    // HTTP_INTERCEPTORS is the token to recognize, the dependency identifier
+      provide: HTTP_INTERCEPTORS,                     // HTTP_INTERCEPTORS is the token to recognize, the dependency identifier
       useClass: AuthInterceptorService,              // with useClass you point where you want to use this interception
-      multi: true                                    //----> here just stating that there is more than one interceptor, and it should not overwrite the existing ones!
+      multi: true                                   //----> here just stating that there is more than one interceptor, and it should not overwrite the existing ones!
     },
     {
-      provide: HTTP_INTERCEPTORS,                    // HTTP_INTERCEPTORS is the token to recognize, the dependency identifier
-      useClass: LoggingInterceptorService,              // with useClass you point where you want to use this interception
-      multi: true                                    //----> here just stating that there is more than one interceptor, and it should not overwrite the existing ones!
-    },                                               //=====>> todo
+      provide: HTTP_INTERCEPTORS,                     // HTTP_INTERCEPTORS is the token to recognize, the dependency identifier
+      useClass: LoggingInterceptorService,           // with useClass you point where you want to use this interception
+      multi: true                                   //----> here just stating that there is more than one interceptor, and it should not overwrite the existing ones!
+    },                                             //=====>> THE ORDER OR SEQUENCE IS OF ESSENTIAL IMPORTANCE,   BEWARE !!!
   ], 
   bootstrap: [AppComponent]
 })
