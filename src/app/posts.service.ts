@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import {map, catchError} from 'rxjs/operators';                       //no auto -import for this one ! unusual
 import { Subject, throwError } from 'rxjs';
 
@@ -35,7 +35,8 @@ export class PostsService {
       .get<{[key: string]: Post}>(
         'https://angular-exercise-twelve.firebaseio.com/posts.json',
         {
-          headers: new HttpHeaders({'Custom-header': 'Hello'})
+          headers: new HttpHeaders({'Custom-header': 'Hello'}),
+          params: new HttpParams().set('print', 'pretty')
         }
       )
       .pipe(
