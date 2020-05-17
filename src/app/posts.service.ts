@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {map} from 'rxjs/operators';                       //no auto -import for this one ! unusual
-import { Subject } from 'rxjs';
+import {map, catchError} from 'rxjs/operators';                       //no auto -import for this one ! unusual
+import { Subject, throwError } from 'rxjs';
 
 import { Post } from './post.model';
 
@@ -43,9 +43,12 @@ export class PostsService {
             }
           }
           return postsArray;
+        }),
+        catchError(errorRes => {
+          // Send to analytics server f.e.
+          return throwError(errorRes);
         })
-       )
-      
+       )   
   }
   deletePosts(){
     return this.http.delete('https://angular-exercise-twelve.firebaseio.com/posts.json')
