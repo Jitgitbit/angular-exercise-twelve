@@ -47,7 +47,8 @@ export class PostsService {
         {
           headers: new HttpHeaders({'Custom-header': 'Hello'}),
           // params: new HttpParams().set('print', 'pretty')
-          params: searchParams
+          params: searchParams,
+          // responseType: 'text'           //-----> this would break, it can't be an object and a string simultaneously(as stated in the get, Line45)
         }
       )
       .pipe(
@@ -71,11 +72,14 @@ export class PostsService {
     return this.http.delete(
       'https://angular-exercise-twelve.firebaseio.com/posts.json',
       {
-        observe: 'events'
+        observe: 'events',
+        responseType: 'json'             // json is obviously this is the default type
+        // responseType: 'text'
+        // responseType: 'blob'
       }
     ).pipe(
       tap(event => {
-        console.log(`----> What event is being tapped here:`,event);
+        console.log(`----> What event is being tapped here:`,event);                       //this can give you very granular control !
         if(event.type === HttpEventType.Response){
           console.log(`====>> What event.body is being tapped here:`,event.body);
         }
